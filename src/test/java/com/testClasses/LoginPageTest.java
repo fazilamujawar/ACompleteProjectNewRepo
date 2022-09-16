@@ -9,6 +9,7 @@ import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import com.pomClasses.LoginPage;
+import com.pomClasses.PageAlignClass;
 import com.relevantcodes.extentreports.ExtentReports;
 import com.relevantcodes.extentreports.ExtentTest;
 import com.relevantcodes.extentreports.LogStatus;
@@ -17,6 +18,7 @@ import com.utility.CaptureWindow;
 public class LoginPageTest extends CaptureWindow{
 	
 	LoginPage obj1;
+	PageAlignClass obj2;
 	ExtentReports report;
 	ExtentTest test;
 	
@@ -24,8 +26,6 @@ public class LoginPageTest extends CaptureWindow{
 	public void UrlSetup()
 	{
 		chromeSetup();
-		report=new ExtentReports("Test1.dir"+"\\LoginExtentReport.html");
-		test=report.startTest("Login Test");
 	}
 	@BeforeMethod
 	public void OpenUrl()
@@ -35,6 +35,8 @@ public class LoginPageTest extends CaptureWindow{
 	@Test
 	public void LoginTest() throws EncryptedDocumentException, IOException
 	{
+		report=new ExtentReports("Test1.dir"+"\\LoginExtentReport.html");
+		test=report.startTest("Login Test");
 		obj1= new LoginPage(driver);
 		obj1.logoCheck();
 		test.log(LogStatus.INFO, "Logo Checked");
@@ -45,6 +47,18 @@ public class LoginPageTest extends CaptureWindow{
 		test.log(LogStatus.INFO, "Click on login button");
 		obj1.Login();
 		test.log(LogStatus.PASS, "Test One passed");
+		test.log(LogStatus.PASS, test.addScreenCapture(Capture1(driver)));
+	}
+	@Test
+	public void PageAlign() throws IOException, InterruptedException
+	{
+		report=new ExtentReports("Test1.dir"+"\\PageAlignExtentReport.html");
+		test=report.startTest("Page Alignment Test");
+		obj2=new PageAlignClass(driver);
+		test.log(LogStatus.INFO, "Checking the Title of the page");
+		obj2.CheckHeading(driver);
+		test.log(LogStatus.PASS, "Title is get checked");
+		Thread.sleep(2000);
 		test.log(LogStatus.PASS, test.addScreenCapture(Capture1(driver)));
 	}
 	@AfterMethod

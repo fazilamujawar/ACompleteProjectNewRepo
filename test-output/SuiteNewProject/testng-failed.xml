@@ -5,7 +5,7 @@
     <classes>
       <class name="com.testClasses.LoginPageTest">
         <methods>
-          <include name="LoginTest"/>
+          <include name="PageAlign"/>
           <include name="GarbageClean"/>
           <include name="UrlSetup"/>
           <include name="OpenUrl"/>
